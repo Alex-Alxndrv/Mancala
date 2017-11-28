@@ -25,18 +25,37 @@ namespace Mancala
 
         private void P1Turn(int x)
         {
+            MoveBeans(x-1);
 
-            
         }
 
         private void P2Turn(int x)
         {
-
+            MoveBeans(x+6);
         }
 
         private void MoveBeans(int x)
         {
-            
+            var beans = Baskets[x];
+            Baskets[x] = 0;
+            var i = x ;
+            while(beans>0)
+            {
+                i++;
+                if (i == 14)
+                    i = 0;
+                Baskets[i]++;
+                beans--;
+            }
+
+            if (i != 6 && i != 13)
+                ActivePlayer = 1 - ActivePlayer;
+
+            GameMessage.Invoke(GetStateString());
+
+            Iteration();
+
+
         }
 
         public void Start()
@@ -55,6 +74,7 @@ namespace Mancala
         private void Iteration()
         {
             Players[ActivePlayer].Move();
+
 
         }
 

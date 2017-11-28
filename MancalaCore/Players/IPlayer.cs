@@ -18,7 +18,7 @@ namespace Mancala.Players
             _moveCallback = callback;
         }
 
-        Action<int> _moveCallback;
+        internal Action<int> _moveCallback;
 
         public abstract void Move();
     }
