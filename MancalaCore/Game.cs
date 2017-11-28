@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Mancala.Players;
+using System;
 
 namespace Mancala
 {
+    
+
     public class Game
     {
         public IPlayer[] Players;
@@ -12,6 +15,30 @@ namespace Mancala
         public int TurnCount = 0;
         public int DefaultBeansCount = 4;
 
+        public Game(IPlayer player1, IPlayer player2)
+        {
+            Players= new IPlayer[] { player1, player2};
+
+            player1.Init(P1Turn);
+            player2.Init(P2Turn);
+        }
+
+        private void P1Turn(int x)
+        {
+
+            
+        }
+
+        private void P2Turn(int x)
+        {
+
+        }
+
+        private void MoveBeans(int x)
+        {
+            
+        }
+
         public void Start()
         {
             GameMessage.Invoke("Game started!");
@@ -20,9 +47,20 @@ namespace Mancala
 
             ResetBaskets();
             GameMessage.Invoke(GetStateString());
+            GameMessage.Invoke(string.Format("Player {0} does first turn", Players[ActivePlayer].Name));
 
-            GameMessage.Invoke(string.Format("Player {0} does first turn", ActivePlayer));
+            Iteration();
         }
+
+        private void Iteration()
+        {
+            Players[ActivePlayer].Move();
+
+        }
+
+
+        
+
 
         private void ResetBaskets()
         {
@@ -46,7 +84,10 @@ namespace Mancala
         }
 
         public delegate void GameMessageDelegate(string msg);
-
         public event GameMessageDelegate GameMessage;
+
+        
+
+
     }
 }

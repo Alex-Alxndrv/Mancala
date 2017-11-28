@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mancala.Players
+﻿namespace Mancala.Players
 {
-    class HumanPlayer : IPlayer
+    public class HumanPlayer : IPlayer
     {
-        public Game CurrentGame()
+        public HumanPlayer(string name) : base(name)
         {
-            
         }
 
-        public string Name()
+        public override void Move()
         {
-            throw new NotImplementedException();
+           
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Mancala.Players;
 
 namespace Mancala
 {
@@ -6,11 +7,26 @@ namespace Mancala
     {
         static void Main(string[] args)
         {
-            var myGame= new Game();
+            Console.WriteLine("Welcome to Mancala! ");
 
-            myGame.GameMessage += MyGame_GameMessage;
+            //while(true)
+            {
+                var p1 = new HumanPlayer("Alex");
+                var p2 = new HumanPlayer("Vasya");
+                var myGame = new Game(p1,p2);
 
-            myGame.Start();
+                myGame.GameMessage += MyGame_GameMessage;
+
+                myGame.Start();
+
+            }
+
+
+
+
+
+
+            
 
             Console.ReadLine();
         }
