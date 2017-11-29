@@ -11,11 +11,14 @@ namespace Mancala.Players
 
         public string Name { get; set; }
 
-        public Game GameInstance { get; set; }
+        internal Game _gameInstance { get; set;}
+        internal int _number;
 
-        public void Init(Action<int> callback)
+        public void Init(Game game, int number, Action<int> callback)
         {
             _moveCallback = callback;
+            _gameInstance = game;
+            _number = number;
         }
 
         internal Action<int> _moveCallback;
