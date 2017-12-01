@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Mancala4Telegram
 {
@@ -31,58 +32,84 @@ namespace Mancala4Telegram
             log.InfoFormat("{0}:{1}", update.message.from.username, update.message.text);
 
             var Bot = new Telegram.Bot.TelegramBotClient(ConfigurationManager.AppSettings["telegramToken"]);
-
-            switch (update.message.text.ToLower())
+                        
+            if (update.message.text != null)
             {
-                case "привет":
-                    Bot.SendTextMessageAsync(update.message.chat.id, "Привет," + update.message.from.first_name);
-                    break;
-                case "гад":
-                case "гандон":
-                case "гнида":
-                case "гавно":
-                case "говнище":
-                case "говно":
-                case "говнюк":
-                case "гондон":
-                case "дерьмо":
-                case "долбоеб":
-                case "долбоёб":
-                case "ебан":
-                case "ебанат":
-                case "ебанашка":
-                case "ебанутый":
-                case "ёбнутый":
-                case "жлоб":
-                case "жопа":
-                case "жопошник":
-                case "заебал":
-                case "засранец":
-                case "идиот":
-                case "мудак":
-                case "мудозвон":
-                case "негодяй":
-                case "обмудок":
-                case "падла":
-                case "педик":
-                case "педрила":
-                case "петушара":
-                case "пидор":
-                case "пидорас":
-                case "пидрила":
-                case "поебень":
-                case "сучара":
-                case "сучка":
-                case "ублюдок":
-                case "уёба":
-                case "уёбок":
-                case "хуесос":
-                case "хуила":
-                case "чмо":
-                case "чмошник":
-                    Bot.SendTextMessageAsync(update.message.chat.id, "Пошёл нахуй, " + update.message.from.first_name);
-                    break;
+                switch (update.message.text.ToLower())
+                {
+                    case "привет":
+                        Bot.SendTextMessageAsync(update.message.chat.id, "Привет," + update.message.from.first_name);
+                        break;
+                    case "/newgame":
+                        ReplyKeyboardMarkup replyKeyboardMarkup =
+                            new ReplyKeyboardMarkup(
+                                new[]
+                                {
+                                    new Telegram.Bot.Types.KeyboardButton("1"),
+                                    new Telegram.Bot.Types.KeyboardButton("2"),
+                                    new Telegram.Bot.Types.KeyboardButton("3"),
+                                    new Telegram.Bot.Types.KeyboardButton("4"),
+                                    new Telegram.Bot.Types.KeyboardButton("5"),
+                                    new Telegram.Bot.Types.KeyboardButton("6")
+                                });
+
+                        Bot.SendTextMessageAsync(update.message.chat.id, "————————————————", Telegram.Bot.Types.Enums.ParseMode.Markdown, true, true, 0, replyKeyboardMarkup);
+
+                        break;
+
+                    case "гад":
+                    case "гандон":
+                    case "гнида":
+                    case "гавно":
+                    case "говнище":
+                    case "говно":
+                    case "говнюк":
+                    case "гондон":
+                    case "дерьмо":
+                    case "долбоеб":
+                    case "долбоёб":
+                    case "ебан":
+                    case "ебанат":
+                    case "ебанашка":
+                    case "ебанутый":
+                    case "ёбнутый":
+                    case "жлоб":
+                    case "жопа":
+                    case "жопошник":
+                    case "заебал":
+                    case "засранец":
+                    case "идиот":
+                    case "мудак":
+                    case "мудозвон":
+                    case "негодяй":
+                    case "обмудок":
+                    case "падла":
+                    case "педик":
+                    case "педрила":
+                    case "петушара":
+                    case "пидор":
+                    case "пидорас":
+                    case "пидрила":
+                    case "поебень":
+                    case "сучара":
+                    case "сучка":
+                    case "ублюдок":
+                    case "уёба":
+                    case "уёбок":
+                    case "хуесос":
+                    case "хуила":
+                    case "чмо":
+                    case "чмошник":
+                        Bot.SendTextMessageAsync(update.message.chat.id, "Пошёл нахуй, " + update.message.from.first_name);
+                        break;
+                    
+
+
+                    default:
+                        break;
+                }
             }
+        
         
         }
     }
