@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Mancala4Telegram
@@ -27,33 +28,47 @@ namespace Mancala4Telegram
         //    return composite;
         //}
 
-        public void GetUpdate(Update update)
+        public void GetUpdate(Telegram.Bot.Types.Update update)
         {
-            log.InfoFormat("{0}:{1}", update.message.from.username, update.message.text);
+            log.InfoFormat("{0}:{1}", update.Message.From.Username, update.Message.Text);
 
             var Bot = new Telegram.Bot.TelegramBotClient(ConfigurationManager.AppSettings["telegramToken"]);
                         
-            if (update.message.text != null)
+            if (update.Message.Text != null)
             {
-                switch (update.message.text.ToLower())
+                switch (update.Message.Text.ToLower())
                 {
                     case "привет":
-                        Bot.SendTextMessageAsync(update.message.chat.id, "Привет," + update.message.from.first_name);
+                        Bot.SendTextMessageAsync(update.Message.Chat.Id, "Привет," + update.Message.From.FirstName);
                         break;
                     case "/newgame":
-                        ReplyKeyboardMarkup replyKeyboardMarkup =
-                            new ReplyKeyboardMarkup(
-                                new[]
-                                {
-                                    new Telegram.Bot.Types.KeyboardButton("1"),
-                                    new Telegram.Bot.Types.KeyboardButton("2"),
-                                    new Telegram.Bot.Types.KeyboardButton("3"),
-                                    new Telegram.Bot.Types.KeyboardButton("4"),
-                                    new Telegram.Bot.Types.KeyboardButton("5"),
-                                    new Telegram.Bot.Types.KeyboardButton("6")
-                                });
+                        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(
+                            new Telegram.Bot.Types.InlineKeyboardButtons.InlineKeyboardButton[]
+                            {
+                                new Telegram.Bot.Types.InlineKeyboardButtons.InlineKeyboardCallbackButton("4","1"),
+                                new Telegram.Bot.Types.InlineKeyboardButtons.InlineKeyboardCallbackButton("4","2"),
+                                new Telegram.Bot.Types.InlineKeyboardButtons.InlineKeyboardCallbackButton("4","3"),
+                                new Telegram.Bot.Types.InlineKeyboardButtons.InlineKeyboardCallbackButton("4","4"),
+                                new Telegram.Bot.Types.InlineKeyboardButtons.InlineKeyboardCallbackButton("4","5"),
+                                new Telegram.Bot.Types.InlineKeyboardButtons.InlineKeyboardCallbackButton("4","6")
+                            });
 
-                        Bot.SendTextMessageAsync(update.message.chat.id, "————————————————", Telegram.Bot.Types.Enums.ParseMode.Markdown, true, true, 0, replyKeyboardMarkup);
+
+
+                        //Telegram.Bot.Types.Update x;                        x.
+                        //ReplyKeyboardMarkup replyKeyboardMarkup =
+                        //    new ReplyKeyboardMarkup(
+                        //        new[]
+                        //        {
+                        //            new Telegram.Bot.Types.KeyboardButton("1"),
+                        //            new Telegram.Bot.Types.KeyboardButton("2"),
+                        //            new Telegram.Bot.Types.KeyboardButton("3"),
+                        //            new Telegram.Bot.Types.KeyboardButton("4"),
+                        //            new Telegram.Bot.Types.KeyboardButton("5"),
+                        //            new Telegram.Bot.Types.KeyboardButton("6")
+                        //        });
+
+                        Bot.SendTextMessageAsync(update.Message.Chat.Id, "————————————————", Telegram.Bot.Types.Enums.ParseMode.Markdown, true, true, 0, inlineKeyboardMarkup);
 
                         break;
 
@@ -100,7 +115,7 @@ namespace Mancala4Telegram
                     case "хуила":
                     case "чмо":
                     case "чмошник":
-                        Bot.SendTextMessageAsync(update.message.chat.id, "Пошёл нахуй, " + update.message.from.first_name);
+                        Bot.SendTextMessageAsync(update.Message.Chat.Id, "Пошёл нахуй, " + update.Message.From.FirstName);
                         break;
                     
 

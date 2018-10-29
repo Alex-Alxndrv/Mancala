@@ -1,5 +1,6 @@
 ﻿using System.ServiceModel;
 using System.ServiceModel.Web;
+using Telegram.Bot.Types;
 
 namespace Mancala4Telegram
 {
